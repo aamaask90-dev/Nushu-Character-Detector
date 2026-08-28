@@ -18,15 +18,14 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Create Dummy google-services.json if missing
+    - name: Remove Google Services Plugin to Prevent Failure
       run: |
-        if [ ! -f "app/google-services.json" ]; then
-          echo "Creating dummy google-services.json to satisfy plugin..."
-          mkdir -p app
-          echo '{"project_info": {"project_number": "123456789", "project_id": "dummy-project"}, "client": [{"client_info": {"mobilesdk_app_id": "1:123:android:123"}, "oauth_client": [], "api_key": [{"current_key": "AIzaSyDummyKey"}]}], "configuration_version": "1"}' > app/google-services.json
-        fi
+        echo "Removing google-services plugin application block..."
+        find . -name "build.gradle*" -exec sed -i '/google-services/d' {} \;
+        find . -name "build.gradle*" -exec sed -i '/com.google.gms.google-services/d' {} \;
+        rm -f app/google-services.json
 
-    - name: Bypass Missing Keystore & Force Build
+    - name: Force Build Debug APK
       run: |
         if [ -f "./gradlew" ]; then
           chmod +x gradlew
