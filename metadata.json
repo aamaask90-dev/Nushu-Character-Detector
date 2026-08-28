@@ -1,0 +1,6 @@
+{
+  "name": "Nüshu Historical Character Detector",
+  "description": "Offline on-device Nüshu historical character detection and recognition on bamboo strip manuscripts with custom anti-overlap and NMS filtering.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
